@@ -1,0 +1,25 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+</head>
+<body>
+    <div>
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    <div>
+    {% for message in messages %}
+    {{message}}
+    {% endfor %}
+    </div>
+    <br>
+    <div>
+        <a href="{% url 'register' %}">Don't have an account? Register now!</a>
+    </div>
+</body>
+</html>

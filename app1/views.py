@@ -4,10 +4,17 @@ from app1.forms import RegisterForm, LoginForm
 from django.contrib.auth.models import User
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
+from app1.models import Article, ArticleCatagory
 
 @login_required(login_url='login')
 def home(request):
-    return render(request, 'home.html')
+    articles = Article.objects.all()
+    categories = ArticleCatagory.objects.all()
+    context={
+        'articles':articles ,
+        'categories':categories ,
+    }
+    return render(request, 'home.html', context)
 
 def register(request):
     form = RegisterForm()
@@ -57,3 +64,19 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('login')
+
+def selected_category(request, selected_category):
+    thecategory = None
+    articles = Article.objects.all()
+    categories = ArticleCatagory.objects.all()
+    if selected_category is not None:
+        thecategory = ArticleCatagory.objects.get(category=selected_category)
+    thearticle = Article.objects.filter(category=thecategory)
+    context = {
+        'articles':articles ,
+        'categories':categories ,
+        'thecategory':thecategory ,
+        'thearticle':thearticle ,
+    }
+    return render(request, 'categories.html', context)
+

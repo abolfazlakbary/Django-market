@@ -15,6 +15,11 @@ class ArticleGuarantee(models.Model):
     def __str__(self):
         return self.guarantee_time
 
+class ArticleCatagory(models.Model):
+    category = models.CharField(max_length=50)
+    def __str__(self):
+        return self.category
+
 def upload_path(instance,title):
     today = str(datetime.datetime.now())
     name = instance.user
@@ -24,6 +29,7 @@ class Article(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     image = models.ImageField(upload_to=upload_path, blank=True)
     title = models.CharField(max_length=100)
+    category = models.ForeignKey(ArticleCatagory, on_delete=models.CASCADE, null=True)
     color = models.ForeignKey(ArticleColor, on_delete=models.CASCADE)
     description = models.TextField()
     publish_date = models.DateTimeField(auto_now=True)

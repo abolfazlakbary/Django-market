@@ -47,11 +47,11 @@
             <section id='main-section'>
               <div class="container text-center">
                 <div class="row row-cols-4">
-                  {% for article in articles %}
+                  {% for object in thearticle %}
                   <div class="col"><a class='a-image' href='#'>
-                    <img class='image' src="{{article.image}}"/>
-                    <h5>{{article.title}}</h5>
-                    <p>{{article.cost}}</p>
+                    <img class='image' src="{{object.image.url}}"/>
+                    <h5>{{object.title}}</h5>
+                    <p>{{object.cost}}</p>
                   </a></div>
                   {% endfor %}
                 </div>

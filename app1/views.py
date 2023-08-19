@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 from app1.models import Article, ArticleCatagory
+from django.views.generic import ListView
+from django.db.models import Q
 
 @login_required(login_url='login')
 def home(request):
@@ -80,3 +82,23 @@ def selected_category(request, selected_category):
     }
     return render(request, 'categories.html', context)
 
+class SearchResaultsView(ListView):
+    model = Article
+    template_name = "search_results.html"
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        object_list = Article.objects.filter(
+            Q(title__icontains=query)
+        )
+        return object_list
+    
+class SelectedpostView(ListView):
+    model = Article
+    template_name = "selected_post.html"
+    def get_context_data(self):
+        context = super(SelectedpostView, self).get_context_data()
+        article = Article.objects.get(id=self.kwargs["article_id"])
+        context["article"] = article
+        context["articles"] = Article.objects.all()
+        context["categories"] = ArticleCatagory.objects.all()
+        return context

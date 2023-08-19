@@ -1,0 +1,31 @@
+#main-section{
+    width: 70%;
+    min-height: 500px;
+    text-align: center;
+    float: right;
+    overflow: scroll;
+}
+
+aside{
+    width: 25%;
+    min-height: 500px;
+    background-color: whitesmoke;
+    float: left;
+    overflow: scroll;
+}
+
+.clearbox::after{
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.image{
+    width: 400px;
+    height: auto;
+}
+
+#main-main *{
+    padding-bottom: 10px;
+    font-size: 25px;
+}
